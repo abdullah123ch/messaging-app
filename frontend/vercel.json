@@ -1,0 +1,11 @@
+{
+  "redirects": [
+    { "source": "/login", "destination": "/auth/login" },
+    { "source": "/register", "destination": "/auth/register" },
+    { "source": "/", "destination": "/auth/login" }
+  ],
+  "rewrites": [
+    { "source": "/dashboard/(.*)", "destination": "/dashboard" },
+    { "source": "/auth/(.*)", "destination": "/auth" }
+  ]
+}
