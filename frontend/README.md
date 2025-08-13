@@ -1,8 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Messaging App Frontend
+
+A modern, real-time messaging application built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- 🔐 User authentication (login/register)
+- 💬 Real-time messaging with WebSockets
+- 📱 Responsive design that works on all devices
+- 🎨 Modern UI with Tailwind CSS
+- 🔄 Real-time message updates
+- 🛡️ Protected routes
+- 🚀 Optimized for performance
+
+## Prerequisites
+
+- Node.js 18.0.0 or later
+- npm, yarn, or pnpm
+- Backend API server (see backend README for setup)
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+3. Create a `.env.local` file in the root directory and add the following environment variables:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+NEXT_PUBLIC_WS_URL=ws://localhost:8000
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +52,81 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                    # App router
+│   ├── api/                # API routes
+│   ├── auth/               # Authentication pages
+│   ├── dashboard/          # Protected dashboard routes
+│   ├── globals.css         # Global styles
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Home page
+├── components/             # Reusable components
+│   ├── auth/               # Auth components
+│   ├── ui/                 # UI components
+│   └── ErrorBoundary.tsx   # Error boundary
+├── contexts/               # React contexts
+├── lib/                    # Utility functions
+└── types/                  # TypeScript type definitions
+```
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **State Management**: React Context API
+- **Real-time**: WebSockets
+- **Form Handling**: React Hook Form
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Code Formatting**: Prettier
+- **Linting**: ESLint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Create a `.env.local` file in the root directory and add the following variables:
 
-## Deploy on Vercel
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+NEXT_PUBLIC_WS_URL=ws://localhost:8000
+```
+
+## Available Scripts
+
+- `dev` - Start the development server
+- `build` - Build the application for production
+- `start` - Start the production server
+- `lint` - Run ESLint
+- `format` - Format code with Prettier
+
+## Deployment
+
+### Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Self-Hosting
+
+1. Build the application:
+
+```bash
+npm run build
+```
+
+2. Start the production server:
+
+```bash
+npm start
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

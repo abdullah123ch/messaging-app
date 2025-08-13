@@ -5,28 +5,32 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app
 
-# Development stage
-FROM base AS development
+# Install system dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     gcc \
     python3-dev \
-    libpq-dev && \
-    rm -rf /var/lib/apt/lists/*
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
+# Development stage
+FROM base AS development
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Production stage
 FROM base AS production
+# Install only runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends libpq5 && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=development /root/.cache /root/.cache
-COPY --from=development /app/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt && \
-    rm -rf /root/.cache
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
 
 COPY . .
 
