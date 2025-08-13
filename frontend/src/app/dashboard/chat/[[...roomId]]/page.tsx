@@ -1,44 +1,52 @@
 'use client';
 
-import { ChatSidebar } from '@/components/chat/chat-sidebar';
-import { ChatInterface } from '@/components/chat/chat-interface';
 import { useParams } from 'next/navigation';
 
 export default function ChatPage() {
   const { roomId } = useParams() as { roomId?: string[] };
-  const chatId = roomId?.[0];
+  const chatId = roomId?.[0] || 'general';
 
   return (
-    <div className="flex h-[calc(100vh-4rem)]">
-      <ChatSidebar />
-      {chatId ? (
-        <ChatInterface className="flex-1" />
-      ) : (
-        <div className="flex-1 flex items-center justify-center bg-muted/50">
-          <div className="text-center p-8 max-w-md">
-            <div className="h-12 w-12 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6 text-primary"
-              >
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-              </svg>
+    <div className="flex flex-col h-[calc(100vh-4rem)] p-4">
+      <div className="border-b pb-4 mb-4">
+        <h1 className="text-2xl font-bold">Room: {chatId}</h1>
+      </div>
+      
+      <div className="flex-1 border rounded-lg p-4 mb-4 overflow-y-auto">
+        <div className="space-y-4">
+          {/* Sample messages */}
+          <div className="flex items-start space-x-2">
+            <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+              U
             </div>
-            <h3 className="text-xl font-semibold mb-2">Select a conversation</h3>
-            <p className="text-muted-foreground">
-              Choose an existing conversation or start a new one to begin messaging.
-            </p>
+            <div>
+              <div className="font-medium">User</div>
+              <div className="text-sm text-gray-600">Welcome to the {chatId} room!</div>
+            </div>
+          </div>
+          
+          <div className="flex items-start space-x-2">
+            <div className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center text-white">
+              B
+            </div>
+            <div>
+              <div className="font-medium">Bot</div>
+              <div className="text-sm text-gray-600">This is a simple chat interface. You can customize it further!</div>
+            </div>
           </div>
         </div>
-      )}
+      </div>
+      
+      <div className="flex space-x-2">
+        <input
+          type="text"
+          placeholder="Type a message..."
+          className="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+          Send
+        </button>
+      </div>
     </div>
   );
 }

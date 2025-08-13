@@ -18,7 +18,8 @@ export default function LoginPage() {
       console.log('Logging in with:', { email });
       
       // For now, just redirect to dashboard on any login attempt
-      router.push('/dashboard/chat');
+      // Using 'general' as the default room ID
+      router.push('/dashboard/chat/general');
     } catch (err) {
       setError('Failed to log in. Please check your credentials.');
       console.error('Login error:', err);
