@@ -2,8 +2,9 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  output: 'export',
-  distDir: 'out',
+  // Temporarily removing static export to fix build issues
+  // output: 'export',
+  // distDir: 'out',
   images: {
     unoptimized: true,
   },

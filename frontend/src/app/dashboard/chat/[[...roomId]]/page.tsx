@@ -1,15 +1,29 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
-export default function ChatPage() {
-  const { roomId } = useParams() as { roomId?: string[] };
-  const chatId = roomId?.[0] || 'general';
+// Generate static params for the dynamic route
+export async function generateStaticParams() {
+  // Pre-render these routes at build time
+  return [{ roomId: ['general'] }];
+}
+
+type ChatPageProps = {
+  params: { roomId?: string[] };
+};
+
+export default function ChatPage({ params }: ChatPageProps) {
+  const roomName = params.roomId?.[0] || 'general';
+  
+  // Validate room name - only allow alphanumeric and hyphens/underscores
+  if (!/^[a-zA-Z0-9-_]+$/.test(roomName)) {
+    notFound();
+  }
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] p-4">
       <div className="border-b pb-4 mb-4">
-        <h1 className="text-2xl font-bold">Room: {chatId}</h1>
+        <h1 className="text-2xl font-bold">Room: {roomName}</h1>
       </div>
       
       <div className="flex-1 border rounded-lg p-4 mb-4 overflow-y-auto">
@@ -21,7 +35,7 @@ export default function ChatPage() {
             </div>
             <div>
               <div className="font-medium">User</div>
-              <div className="text-sm text-gray-600">Welcome to the {chatId} room!</div>
+              <div className="text-sm text-gray-600">Welcome to the {roomName} room!</div>
             </div>
           </div>
           
