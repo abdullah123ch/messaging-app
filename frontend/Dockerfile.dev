@@ -1,0 +1,44 @@
+# Base stage
+FROM node:18-alpine AS base
+WORKDIR /app
+
+# Development stage
+FROM base AS development
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the application
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Set environment to development
+ENV NODE_ENV=development
+
+# Start the application with development settings
+CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]
+
+# Production stage (minimal for development Dockerfile, full production would be in a separate file)
+FROM base AS production
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install --only=production
+
+# Copy the rest of the application
+COPY . .
+
+# Build the application
+RUN npm run build
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Set environment to production
+ENV NODE_ENV=production
+
+# Start the application
+CMD ["npm", "start"]
